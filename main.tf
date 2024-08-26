@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "jaketerraformstate"
-    key    = "s3/terraform.tfstate""
+    key    = "s3/terraform.tfstate"
     region = var.region
   }
 }
