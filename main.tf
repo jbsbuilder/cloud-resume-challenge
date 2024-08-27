@@ -10,3 +10,10 @@ module "cloudfront" {
   bucket_name    = var.bucket_name
   root_domain_cf = module.s3.website_endpoint_root
 }
+
+module "route53" {
+  source = "./modules/route53"
+
+  cloudfront_distribution_domain_name     = module.cloudfront.s3_distribution.domain_name
+  cloudfront_distribution_hosted_zone_id  = module.cloudfront.s3_distribution.hosted_zone_id
+}
