@@ -1,9 +1,9 @@
-# resource "aws_s3_bucket" "cloud-resume-challenge" {
+# resource "aws_s3_bucket" "cloud_resume_challenge" {
 #   bucket = var.bucket_name
 # }
 
-# resource "aws_s3_bucket_acl" "cloud-resume-challenge" {
-#   bucket = aws_s3_bucket.cloud-resume-challenge.id
+# resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
+#   bucket = aws_s3_bucket.cloud_resume_challenge.id
 #   acl = var.acl
 
 # locals {
@@ -11,10 +11,10 @@
 #   }
 # }
 cloud-resume-challenge
-resource "aws_cloudfront_distribution" "cloud-resume-challenge" {
+resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
   origin {
     domain_name = var.domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.cloud-resume-challenge.id
+    origin_access_control_id = aws_cloudfront_origin_access_control.cloud_resume_challenge.id
     origin_id = "website"
   }
     enabled             = true
@@ -61,7 +61,7 @@ resource "aws_cloudfront_distribution" "cloud-resume-challenge" {
 }
 
 
-resource "aws_cloudfront_origin_access_control" "cloud-resume-challenge" {
+resource "aws_cloudfront_origin_access_control" "cloud_resume_challenge" {
   name = "website"
   origin_access_control_origin_type = "s3"
   signing_behavior = "always"

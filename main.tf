@@ -25,3 +25,21 @@ module "cloudfront" {
   cloudfront_id = module.cloudfront.cloudfront_id
   cloudfront_zone = module.cloudfront.cloudfront_zone
 }
+
+module "website_table" {
+  source = "./modules/dynamodb"
+
+  table_name = "visit_count"
+}
+
+module "apigateway" {
+  source = "./modules/apigateway"
+
+  apigateway_name = "dynamo_lambda_api"
+  invoke_arn = module.lambda.invoke_arn
+  function_name = module.lambda.function_name
+}
+
+module "lambda" {
+  source = "./modules/lambda"
+}

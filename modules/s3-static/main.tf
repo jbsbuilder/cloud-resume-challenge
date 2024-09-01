@@ -1,16 +1,16 @@
-resource "aws_s3_bucket" "cloud-resume-challenge" {
+resource "aws_s3_bucket" "cloud_resume_challenge" {
   bucket = var.bucket_name
 
 }
 
 
-resource "aws_s3_bucket_acl" "cloud-resume-challenge" {
-  bucket = aws_s3_bucket.cloud-resume-challenge.id
+resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
   acl = var.acl
 }
 
-resource "aws_s3_bucket_website_configuration" "cloud-resume-challenge" {
-  bucket = aws_s3_bucket.cloud-resume-challenge.id
+resource "aws_s3_bucket_website_configuration" "cloud_resume_challenge" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
 
   index_document {
     suffix = "index.html"
@@ -21,8 +21,8 @@ resource "aws_s3_bucket_website_configuration" "cloud-resume-challenge" {
   # }
 }
 
-resource "aws_s3_bucket_policy" "cloud-resume-challenge" {
-  bucket = aws_s3_bucket.cloud-resume-challenge.id
+resource "aws_s3_bucket_policy" "cloud_resume_challenge" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
   policy = <<EOF
   {
     "Version": "2012-10-17",
