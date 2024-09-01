@@ -5,6 +5,13 @@ module "tfstate" {
   acl = "private"
 }
 
+module "static_bucket" {
+  source = "./modules/s3_static"
+
+  bucket_name = "cloudresuemchallenge.cloudsmithlabs.com"
+  acl = "public-read"
+}
+
 module "cloudfront" {
   source = "./modules/cloudfront"
 
