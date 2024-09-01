@@ -1,2 +1,8 @@
-variable "bucket_name" {}
-variable "root_bucket_name" {}
+variable "bucket_name" {
+  type = string
+}
+
+variable "acl" {
+  type = string
+  default = "private"
+}

@@ -1,19 +1,20 @@
-module "s3" {
-  source           = "./modules/s3"
-  bucket_name      = var.bucket_name
-  root_bucket_name = var.root_bucket_name
+module "tfstate" {
+  source = "./modules/s3"
+
+  bucket_name = var.bucket_name
+  acl = "private"
 }
 
 module "cloudfront" {
-  source         = "./modules/cloudFront"
-  domain_name_cf = module.s3.website_endpoint
-  bucket_name    = var.bucket_name
-  root_domain_cf = module.s3.website_endpoint_root
+  source = "./modules/cloudfront"
+
+  domain_name = module.static_bucket.domain_name
+  acm_certificate_arn = module.acm_cert.acm_certificate_arn
 }
 
-module "route53" {
+ module "route53" {
   source = "./modules/route53"
 
-  cloudfront_distribution_domain_name     = module.cloudfront.s3_distribution.domain_name
-  cloudfront_distribution_hosted_zone_id  = module.cloudfront.s3_distribution.hosted_zone_id
+  cloudfront_id = module.cloudfront.cloudfront_id
+  cloudfront_zone = module.cloudfront.cloudfront_zone
 }

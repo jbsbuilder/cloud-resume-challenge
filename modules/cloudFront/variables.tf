@@ -1,3 +1,7 @@
-variable "domain_name_cf" {}
-variable "bucket_name" {}
-variable "root_domain_cf" {}
+variable "domain_name" {
+  type = string
+}
+
+variable "acm_certificate_arn" {
+  type = string
+}

@@ -1,6 +1,7 @@
-output "s3_distribution" {
-  value = {
-    domain_name    = aws_cloudfront_distribution.s3_distribution.domain_name
-    hosted_zone_id = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
-  }
+output "cloudfront_id" {
+  value = aws_cloudfront_distribution.cloud-resume-challenge.domain_name
+}
+
+output "cloudfront_zone" {
+  value = aws_cloudfront_distribution.cloud-resume-challenge.hosted_zone_id
 }

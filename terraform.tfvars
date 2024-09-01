@@ -1,3 +1,2 @@
-bucket_name = "cloudresumechallenge.cloudsmithlabs.com"
-root_bucket_name = "cloudresumechallenge"
+bucket_name = "jaketerraformstate1.1"
 region = "us-west-1"
