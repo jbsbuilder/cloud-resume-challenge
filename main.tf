@@ -12,18 +12,26 @@ module "static_bucket" {
   acl = "public-read"
 }
 
-module "cloudfront" {
+module "cloudFront" {
   source = "./modules/cloudFront"
 
   domain_name = module.static_bucket.domain_name
-  acm_certificate_arn = module.acm_cert.acm_certificate_arn
+  acm_certificate_arn = module.acm.acm_certificate_arn
+}
+
+module "acm" {
+  source = "./modules/acm"
+
+  providers = {
+    aws.acm = aws.acm
+   }
 }
 
  module "route53" {
   source = "./modules/route53"
 
-  cloudfront_id = module.cloudfront.cloudfront_id
-  cloudfront_zone = module.cloudfront.cloudfront_zone
+  cloudfront_id = module.cloudFront.cloudfront_id
+  cloudfront_zone = module.cloudFront.cloudfront_zone
 }
 
 module "website_table" {

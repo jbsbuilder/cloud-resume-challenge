@@ -9,7 +9,7 @@ provider "aws" {
   shared_credentials_files = ["~/.aws/credentials"]
 }
 
-terraform {
+/*terraform {
   backend "s3" {
     bucket = "jaketerraformstate1.1"
     key    = "s3/terraform.tfstate"
@@ -18,5 +18,5 @@ terraform {
     dynamodb_table = "terraform"
     encrypt        = true
   }
-}
+}*/
 

@@ -4,7 +4,7 @@ data "aws_route53_zone" "root_domain" {
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.website.zone_id
+  zone_id = data.aws_route53_zone.root_domain.zone_id
   name = "www.cloudresumechallenge.cloudsmithlabs.com"
   type = "A"
 

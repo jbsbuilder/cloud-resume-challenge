@@ -48,7 +48,7 @@ resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
-  price_class = "Provisioned"
+  price_class = "PriceClass_100"
 
   restrictions {
     geo_restriction {
