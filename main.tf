@@ -6,14 +6,14 @@ module "tfstate" {
 }
 
 module "static_bucket" {
-  source = "./modules/s3_static"
+  source = "./modules/s3-static"
 
   bucket_name = "cloudresuemchallenge.cloudsmithlabs.com"
   acl = "public-read"
 }
 
 module "cloudfront" {
-  source = "./modules/cloudfront"
+  source = "./modules/cloudFront"
 
   domain_name = module.static_bucket.domain_name
   acm_certificate_arn = module.acm_cert.acm_certificate_arn

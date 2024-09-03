@@ -10,7 +10,6 @@
 #   s3_origin_id = "website"
 #   }
 # }
-cloud-resume-challenge
 resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
   origin {
     domain_name = var.domain_name
