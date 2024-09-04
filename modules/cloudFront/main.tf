@@ -14,7 +14,7 @@ resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
   origin {
     domain_name = var.domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.cloud_resume_challenge.id
-    origin_id = "website"
+    origin_id = var.s3_static_bucket_id
   }
     enabled             = true
     is_ipv6_enabled     = true
@@ -26,7 +26,7 @@ resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "website"
+    target_origin_id = var.s3_static_bucket_id
 
     forwarded_values {
       query_string = false
