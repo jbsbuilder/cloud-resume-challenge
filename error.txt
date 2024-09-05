@@ -1,37 +1,99 @@
-╷
-│ Error: creating API Gateway Deployment: operation error API Gateway: CreateDeployment, https response error StatusCode: 400, RequestID: 78bde007-23f1-4904-829c-06b9ee2c170b, BadRequestException: The REST API doesn't contain any methods
+first Round of tf apply
+
+│ Error: creating API Gateway Deployment: operation error API Gateway: CreateDeployment, https response error StatusCode: 400, RequestID: 64580e12-261c-48d6-834d-03e74aab3dd8, BadRequestException: The REST API doesn't contain any methods
 │ 
 │   with module.apigateway.aws_api_gateway_deployment.deployment,
 │   on modules/apigateway/main.tf line 11, in resource "aws_api_gateway_deployment" "deployment":
 │   11: resource "aws_api_gateway_deployment" "deployment" {
 │ 
 ╵
-just hit tf apply twice
 ╷
-│ Error: creating CloudFront Distribution: operation error CloudFront: CreateDistributionWithTags, https response error StatusCode: 400, RequestID: 187e4358-8732-468f-8376-d4275eb11709, InvalidViewerCertificate: The certificate that is attached to your distribution doesn't cover the alternate domain name (CNAME) that you're trying to add. For more details, see: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html#alternate-domain-names-requirements
+│ Error: creating CloudFront Distribution: operation error CloudFront: CreateDistributionWithTags, https response error StatusCode: 400, RequestID: 53fa0fc6-ba1f-4ec4-9d4b-fab79dcc1a55, InvalidViewerCertificate: The certificate that is attached to your distribution doesn't cover the alternate domain name (CNAME) that you're trying to add. For more details, see: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html#alternate-domain-names-requirements
 │ 
 │   with module.cloudFront.aws_cloudfront_distribution.cloud_resume_challenge,
 │   on modules/cloudFront/main.tf line 13, in resource "aws_cloudfront_distribution" "cloud_resume_challenge":
 │   13: resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
 │ 
 ╵
-Retest error
-
 ╷
-│ Error: creating S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) ACL: operation error S3: PutBucketAcl, https response error StatusCode: 403, RequestID: 6QPYB6AZ7TQPAH0T, HostID: Xggyp9gqkigOLGehDrYYFYmGEGu3ZpPKEXdm4lvVyEEGVOAitsJ1HLgFRAxHpu7EmgLEyirSYIQ=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketAcl on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public access control lists (ACLs) are blocked by the BlockPublicAcls block public access setting.
+│ Error: reading ZIP file (../lambda-functions/counter.zip): open ../lambda-functions/counter.zip: no such file or directory
+│ 
+│   with module.lambda.aws_lambda_function.lambda,
+│   on modules/lambda/main.tf line 45, in resource "aws_lambda_function" "lambda":
+│   45: resource "aws_lambda_function" "lambda" {
+│ 
+╵
+╷
+│ Error: creating S3 Bucket (jaketerraformstate1.1): operation error S3: CreateBucket, https response error StatusCode: 409, RequestID: YG1A1Q4H6YBZXQZG, HostID: a6loxUR01kl5UJiXqEXCRfyvyW5yjYQ2aNaiml0JxJRqF7cOzPXzGCPVg31fJP40LlOma0lZW8A=, BucketAlreadyOwnedByYou: 
+│ 
+│   with module.tfstate.aws_s3_bucket.cloud_resume_challenge,
+│   on modules/s3/main.tf line 1, in resource "aws_s3_bucket" "cloud_resume_challenge":
+│    1: resource "aws_s3_bucket" "cloud_resume_challenge" {
+│ 
+╵
+╷
+│ Error: creating S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) ACL: operation error S3: PutBucketAcl, https response error StatusCode: 403, RequestID: DY246QCQSP1YB0SM, HostID: w0Wy82we4bMz1YHp9pTTPgT0v9ciAd0hpYJX9djMfnTNGUVLxlb8PD0zHMgBHqgbLAdDvIFyz+w=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketAcl on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public access control lists (ACLs) are blocked by the BlockPublicAcls block public access setting.
 │ 
 │   with module.static_bucket.aws_s3_bucket_acl.cloud_resume_challenge,
-│   on modules/s3-static/main.tf line 7, in resource "aws_s3_bucket_acl" "cloud_resume_challenge":
+│   on modules/s3_static/main.tf line 7, in resource "aws_s3_bucket_acl" "cloud_resume_challenge":
 │    7: resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
 │ 
 ╵
-Retest error
 ╷
-│ Error: putting S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) Policy: operation error S3: PutBucketPolicy, https response error StatusCode: 403, RequestID: 6QPS0R2V65CS5HYK, HostID: YTnF93+rT14FMYj6ek0quZIQOFIucIa53rNO7AEPc/+zipK2uhovCl0wLqnQ2uxkqq+/4pKTtI8=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketPolicy on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public policies are blocked by the BlockPublicPolicy block public access setting.
+│ Error: putting S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) Policy: operation error S3: PutBucketPolicy, https response error StatusCode: 403, RequestID: DY29BBANA1ET6PBF, HostID: F4NRpyLiJ4DGs/Pamy7Sql/1usVgrbi6vISNmuZU57Cd/vpryTBp9z5vk0OH/MdH6YVdEShP5/A=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketPolicy on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public policies are blocked by the BlockPublicPolicy block public access setting.
 │ 
 │   with module.static_bucket.aws_s3_bucket_policy.cloud_resume_challenge,
-│   on modules/s3-static/main.tf line 24, in resource "aws_s3_bucket_policy" "cloud_resume_challenge":
+│   on modules/s3_static/main.tf line 24, in resource "aws_s3_bucket_policy" "cloud_resume_challenge":
 │   24: resource "aws_s3_bucket_policy" "cloud_resume_challenge" {
 │ 
+definition was found.
+
+
+Second round of tf apply
+│ Error: creating API Gateway Deployment: operation error API Gateway: CreateDeployment, https response error StatusCode: 400, RequestID: 7aef345c-a34e-4302-a727-bdd9674130de, BadRequestException: No integration defined for method
+│ 
+│   with module.apigateway.aws_api_gateway_deployment.deployment,
+│   on modules/apigateway/main.tf line 11, in resource "aws_api_gateway_deployment" "deployment":
+│   11: resource "aws_api_gateway_deployment" "deployment" {
+│ 
 ╵
-Retest error
+╷
+│ Error: creating CloudFront Distribution: operation error CloudFront: CreateDistributionWithTags, https response error StatusCode: 400, RequestID: eefad125-7a1b-4ab4-ac3c-f854d46f4d9e, InvalidViewerCertificate: The certificate that is attached to your distribution doesn't cover the alternate domain name (CNAME) that you're trying to add. For more details, see: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html#alternate-domain-names-requirements
+│ 
+│   with module.cloudFront.aws_cloudfront_distribution.cloud_resume_challenge,
+│   on modules/cloudFront/main.tf line 13, in resource "aws_cloudfront_distribution" "cloud_resume_challenge":
+│   13: resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
+│ 
+╵
+╷
+│ Error: reading ZIP file (../lambda-functions/counter.zip): open ../lambda-functions/counter.zip: no such file or directory
+│ 
+│   with module.lambda.aws_lambda_function.lambda,
+│   on modules/lambda/main.tf line 45, in resource "aws_lambda_function" "lambda":
+│   45: resource "aws_lambda_function" "lambda" {
+│ 
+╵
+╷
+│ Error: creating S3 Bucket (jaketerraformstate1.1): operation error S3: CreateBucket, https response error StatusCode: 409, RequestID: FTGKWZCFYCRG0CC7, HostID: wTBkP8uw5tawsx9oue1YCK2/HLCI1C3u060og0JJtIfxO+boS4YFyzrJifbegQFtBHu+wbm2Kto=, BucketAlreadyOwnedByYou: 
+│ 
+│   with module.tfstate.aws_s3_bucket.cloud_resume_challenge,
+│   on modules/s3/main.tf line 1, in resource "aws_s3_bucket" "cloud_resume_challenge":
+│    1: resource "aws_s3_bucket" "cloud_resume_challenge" {
+│ 
+╵
+╷
+│ Error: creating S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) ACL: operation error S3: PutBucketAcl, https response error StatusCode: 403, RequestID: FTGVFWJK97YXSDBY, HostID: +fqVmCusWPWa+PLmikcyeiGsZH8NX6XfyaONYPlT1qrKCiPFDl5U5oeZMzpUHyOKihd3bSe0Z0E=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketAcl on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public access control lists (ACLs) are blocked by the BlockPublicAcls block public access setting.
+│ 
+│   with module.static_bucket.aws_s3_bucket_acl.cloud_resume_challenge,
+│   on modules/s3_static/main.tf line 7, in resource "aws_s3_bucket_acl" "cloud_resume_challenge":
+│    7: resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
+│ 
+╵
+╷
+│ Error: putting S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) Policy: operation error S3: PutBucketPolicy, https response error StatusCode: 403, RequestID: FTGWCD11RK2AAK7D, HostID: /d1NkQQ/CuuJiGOpHlR5eOdgX5kAAAITCGQ3zI63Ys1/2coGXMoPUyigT2t7159U/IGFB/mvKxI=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketPolicy on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public policies are blocked by the BlockPublicPolicy block public access setting.
+│ 
+│   with module.static_bucket.aws_s3_bucket_policy.cloud_resume_challenge,
+│   on modules/s3_static/main.tf line 24, in resource "aws_s3_bucket_policy" "cloud_resume_challenge":
+│   24: resource "aws_s3_bucket_policy" "cloud_resume_challenge" {
+│ 
+

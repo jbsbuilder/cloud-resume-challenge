@@ -6,6 +6,6 @@ variable "acm_certificate_arn" {
   type = string
 }
 
-variable "s3_static_bucket_id" {
+variable "bucket_id" {
   type = string
 }
