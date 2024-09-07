@@ -64,7 +64,7 @@ Second round of tf apply
 │   on modules/cloudFront/main.tf line 13, in resource "aws_cloudfront_distribution" "cloud_resume_challenge":
 │   13: resource "aws_cloudfront_distribution" "cloud_resume_challenge" {
 │ 
-╵
+Retest╵
 ╷
 │ Error: reading ZIP file (../lambda-functions/counter.zip): open ../lambda-functions/counter.zip: no such file or directory
 │ 
@@ -72,7 +72,7 @@ Second round of tf apply
 │   on modules/lambda/main.tf line 45, in resource "aws_lambda_function" "lambda":
 │   45: resource "aws_lambda_function" "lambda" {
 │ 
-╵
+Retest╵
 ╷
 │ Error: creating S3 Bucket (jaketerraformstate1.1): operation error S3: CreateBucket, https response error StatusCode: 409, RequestID: FTGKWZCFYCRG0CC7, HostID: wTBkP8uw5tawsx9oue1YCK2/HLCI1C3u060og0JJtIfxO+boS4YFyzrJifbegQFtBHu+wbm2Kto=, BucketAlreadyOwnedByYou: 
 │ 
@@ -80,15 +80,15 @@ Second round of tf apply
 │   on modules/s3/main.tf line 1, in resource "aws_s3_bucket" "cloud_resume_challenge":
 │    1: resource "aws_s3_bucket" "cloud_resume_challenge" {
 │ 
-╵
+Retest╵
 ╷
 │ Error: creating S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) ACL: operation error S3: PutBucketAcl, https response error StatusCode: 403, RequestID: FTGVFWJK97YXSDBY, HostID: +fqVmCusWPWa+PLmikcyeiGsZH8NX6XfyaONYPlT1qrKCiPFDl5U5oeZMzpUHyOKihd3bSe0Z0E=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketAcl on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public access control lists (ACLs) are blocked by the BlockPublicAcls block public access setting.
 │ 
 │   with module.static_bucket.aws_s3_bucket_acl.cloud_resume_challenge,
 │   on modules/s3_static/main.tf line 7, in resource "aws_s3_bucket_acl" "cloud_resume_challenge":
 │    7: resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
-│ 
-╵
+ 
+retest
 ╷
 │ Error: putting S3 Bucket (cloudresuemchallenge.cloudsmithlabs.com) Policy: operation error S3: PutBucketPolicy, https response error StatusCode: 403, RequestID: FTGWCD11RK2AAK7D, HostID: /d1NkQQ/CuuJiGOpHlR5eOdgX5kAAAITCGQ3zI63Ys1/2coGXMoPUyigT2t7159U/IGFB/mvKxI=, api error AccessDenied: User: arn:aws:iam::706642554607:user/vscode is not authorized to perform: s3:PutBucketPolicy on resource: "arn:aws:s3:::cloudresuemchallenge.cloudsmithlabs.com" because public policies are blocked by the BlockPublicPolicy block public access setting.
 │ 
@@ -96,4 +96,4 @@ Second round of tf apply
 │   on modules/s3_static/main.tf line 24, in resource "aws_s3_bucket_policy" "cloud_resume_challenge":
 │   24: resource "aws_s3_bucket_policy" "cloud_resume_challenge" {
 │ 
-
+retest

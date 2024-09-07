@@ -4,10 +4,10 @@ resource "aws_s3_bucket" "cloud_resume_challenge" {
 }
 
 
-resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
+/*resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
   bucket = aws_s3_bucket.cloud_resume_challenge.id
   acl = var.acl
-}
+}*/
 
 resource "aws_s3_bucket_website_configuration" "cloud_resume_challenge" {
   bucket = aws_s3_bucket.cloud_resume_challenge.id
@@ -42,3 +42,13 @@ resource "aws_s3_bucket_policy" "cloud_resume_challenge" {
   }
 EOF
 }
+
+resource "aws_s3_bucket_public_access_block" "cloud_resume_challenge" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
