@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "cloud_resume_challenge" {
-bucket = var.bucket_name
+  bucket = var.bucket_name
 }
 
 resource "aws_s3_bucket_public_access_block" "cloud_resume_challenge" {
@@ -35,7 +35,8 @@ resource "aws_s3_object" "website" {
 
 resource "aws_s3_bucket_website_configuration" "cloud_resume_challenge" {
   bucket = aws_s3_bucket.cloud_resume_challenge.id
-   index_document {
+
+  index_document {
     suffix = "index.html"
   }
 
