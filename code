@@ -49,3 +49,9 @@ EOF
   ]
 }
 
+
+
+resource "aws_s3_bucket_acl" "cloud_resume_challenge" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
+  acl = var.acl
+}
