@@ -5,7 +5,7 @@ resource "aws_api_gateway_rest_api" "gateway" {
 resource "aws_api_gateway_resource" "resource" {
   rest_api_id = aws_api_gateway_rest_api.gateway.id
   parent_id   = aws_api_gateway_rest_api.gateway.root_resource_id
-  path_part   = "dynamodb_lambda"
+  path_part   = "lambda_counter"
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
@@ -36,7 +36,7 @@ resource "aws_api_gateway_integration" "integration" {
   rest_api_id             = aws_api_gateway_rest_api.gateway.id
   resource_id             = aws_api_gateway_resource.resource.id
   http_method             = aws_api_gateway_method.method.http_method
-  integration_http_method = "POST"
+  integration_http_method = "GET"
   type                    = "AWS"
   uri                     = var.invoke_arn
 }
