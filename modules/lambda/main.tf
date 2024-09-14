@@ -44,9 +44,9 @@ resource "aws_iam_role_policy_attachment" "dynamodb_lambda_policy" {
 
 resource "aws_lambda_function" "lambda" {
   filename      = "./lambda-functions/counter.zip" 
-  function_name = "lambda_counter" 
+  function_name = "counter" 
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "lambda_counter.handler"
+  handler       = "counter.handler"
 
   runtime = "python3.8"
 

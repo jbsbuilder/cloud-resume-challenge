@@ -7,10 +7,17 @@ def handler(event, context):
     response = table.get_item(Key={
         'record_id': '0'
     })
-    record_count = response['Item']['record_count']
+    
+    # Check if 'Item' exists in the response
+    if 'Item' in response:
+        record_count = response['Item']['record_count']
+    else:
+        record_count = 0
+    
     record_count += 1
     print(record_count)
-    response = table.put_item(Item={
+    
+    table.put_item(Item={
         'record_id': '0',
         'record_count': record_count
     })
