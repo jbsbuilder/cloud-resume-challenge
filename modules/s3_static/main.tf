@@ -33,6 +33,30 @@ resource "aws_s3_object" "website" {
   source_hash = filemd5("website/index.html")
 }
 
+resource "aws_s3_object" "website_style" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
+  key = "resume.css"
+  source = "website/resume.css"
+  content_type = "text/css"
+  source_hash = filemd5("website/resume.css")
+}
+
+resource "aws_s3_object" "website_js" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
+  key = "counter.js"
+  source = "website/counter.js"
+  content_type = "text/javascript"
+  source_hash = filemd5("website/counter.js")
+}
+
+resource "aws_s3_object" "website_404" {
+  bucket = aws_s3_bucket.cloud_resume_challenge.id
+  key = "404.html"
+  source = "website/404.html"
+  content_type = "text/html"
+  source_hash = filemd5("website/404.html")
+}
+
 resource "aws_s3_bucket_website_configuration" "cloud_resume_challenge" {
   bucket = aws_s3_bucket.cloud_resume_challenge.id
 

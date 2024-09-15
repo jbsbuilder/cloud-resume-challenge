@@ -8,7 +8,6 @@ def handler(event, context):
         'record_id': '0'
     })
     
-    # Check if 'Item' exists in the response
     if 'Item' in response:
         record_count = response['Item']['record_count']
     else:
