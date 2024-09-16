@@ -24,7 +24,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-jake']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-jake']]) {
                     sh 'echo "=================Terraform Init=================="'
                     sh 'terraform init'
                 }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     if (params.PLAN_TERRAFORM) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-jake']]) {
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-jake']]) {
                             sh 'echo "=================Terraform Plan=================="'
                             sh 'terraform plan'
                         }
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     if (params.APPLY_TERRAFORM) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-jake']]) {
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-jake']]) {
                             sh 'echo "=================Terraform Apply - Step 1=================="'
                             sh 'terraform apply -auto-approve'
                         }
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     if (params.APPLY_TERRAFORM) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-jake']]) {
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-jake']]) {
                             sh 'echo "=================Terraform Apply - Step 2=================="'
                             sh 'terraform apply -auto-approve'
                         }
@@ -74,7 +74,7 @@ pipeline {
             steps {
                 script {
                     if (params.DESTROY_TERRAFORM) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-jake']]) {
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-jake']]) {
                             sh 'echo "=================Terraform Destroy=================="'
                             sh 'terraform destroy -auto-approve'
                         }
