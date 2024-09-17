@@ -1,48 +1,58 @@
-Cloud Resume Challenge
-This repository contains the code and configurations for the Cloud Resume Challenge, which involves building a serverless website using AWS services, Terraform, and continuous integration with Jenkins.
+# **Cloud Resume Challenge**
 
-Table of Contents
-Project Overview
-Architecture
-Prerequisites
-Getting Started
-Clone the Repository
-Terraform Setup
-AWS Configuration
-Jenkins Pipeline
-Deployment
-Set Up AWS Resources
-Deploy the Website
-Configure API Gateway URL in counter.js
-Invalidate CloudFront Cache (If Applicable)
-Usage
-Cleanup
-Project Structure
-License
-Project Overview
+This repository contains the code and configurations for the **Cloud Resume Challenge**, which involves building a serverless website using AWS services, Terraform, and continuous integration with Jenkins.
+
+## **Table of Contents**
+
+- [Project Overview](#project-overview)
+- [Architecture](#architecture)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Clone the Repository](#clone-the-repository)
+  - [Terraform Setup](#terraform-setup)
+  - [AWS Configuration](#aws-configuration)
+  - [Jenkins Pipeline](#jenkins-pipeline)
+- [Deployment](#deployment)
+  - [1. Set Up AWS Resources](#1-set-up-aws-resources)
+  - [2. Deploy the Website](#2-deploy-the-website)
+  - [3. Configure API Gateway URL in `counter.js`](#3-configure-api-gateway-url-in-counterjs)
+  - [4. Invalidate CloudFront Cache (If Applicable)](#4-invalidate-cloudfront-cache-if-applicable)
+- [Usage](#usage)
+- [Cleanup](#cleanup)
+- [Project Structure](#project-structure)
+- [License](#license)
+
+## **Project Overview**
+
 The Cloud Resume Challenge is a project that showcases your ability to build and deploy a serverless application using AWS services. This project includes:
 
-Hosting a static website on Amazon S3 with a custom domain.
-Using Amazon API Gateway and AWS Lambda to implement a backend that tracks the number of visits to your website.
-Storing visitor count data in Amazon DynamoDB.
-Managing infrastructure as code with Terraform.
-Setting up continuous integration with Jenkins.
-Architecture
+- Hosting a static website on **Amazon S3** with a custom domain.
+- Using **Amazon API Gateway** and **AWS Lambda** to implement a backend that tracks the number of visits to your website.
+- Storing visitor count data in **Amazon DynamoDB**.
+- Managing infrastructure as code with **Terraform**.
+- Setting up continuous integration with **Jenkins**.
 
-Note: Include an architecture diagram if possible to visually represent the components and their interactions.
+## **Architecture**
 
-Prerequisites
+![Architecture Diagram](images/architecture-diagram.png)
+
+*Note: Include an architecture diagram if possible to visually represent the components and their interactions.*
+
+## **Prerequisites**
+
 Before you begin, ensure you have the following installed:
 
-Terraform (v1.5.7 or later)
-AWS CLI (configured with appropriate access)
-Python (for Lambda function)
-Jenkins (set up for CI/CD pipeline)
-Git
-Getting Started
-Clone the Repository
-bash
-Copy code
+- **Terraform** (v1.5.7 or later)
+- **AWS CLI** (configured with appropriate access)
+- **Python** (for Lambda function)
+- **Jenkins** (set up for CI/CD pipeline)
+- **Git**
+
+## **Getting Started**
+
+### **Clone the Repository**
+
+```bash
 git clone https://github.com/your-username/cloud-resume-challenge.git
 cd cloud-resume-challenge
 Terraform Setup
