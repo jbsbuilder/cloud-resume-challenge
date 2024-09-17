@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const counterElement = document.getElementById('count');
-  const api = 'https://fgotxd2dda.execute-api.us-west-1.amazonaws.com/lambda_counter';
+  const api = 'https://n5i04wa5lg.execute-api.us-west-1.amazonaws.com/lambda_counter';
   updateVisit();
 
   function updateVisit(){
