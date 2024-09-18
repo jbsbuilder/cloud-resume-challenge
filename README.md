@@ -56,30 +56,34 @@ Before you begin, ensure you have the following installed:
 git clone https://github.com/your-username/cloud-resume-challenge.git
 cd cloud-resume-challenge
 Terraform Setup
-Initialize Terraform:
+Initialize Terraform:```
 
-bash
+
 Copy code
-terraform init
+```bash
+terraform init```
 Review the Terraform Plan:
 
-bash
+
 Copy code
-terraform plan
+```bash 
+terraform plan```
 Apply the Terraform Configuration:
 
 Due to a dependency issue where the static bucket permissions try to attach before the bucket is created, you need to run terraform apply twice.
 
 First Apply:
 
-bash
+
 Copy code
-terraform apply
+```bash
+terraform apply```
 Second Apply:
 
-bash
+
 Copy code
-terraform apply
+```bash
+terraform apply```
 Note: The first apply creates the S3 bucket, and the second apply attaches the necessary permissions once the bucket exists.
 
 AWS Configuration
@@ -106,9 +110,10 @@ Update the API URL:
 
 In your local website/counter.js file, replace the placeholder API URL with your actual API Gateway URL, appending /lambda_counter to the end.
 
-javascript
+
 Copy code
-const apiUrl = 'https://your-api-id.execute-api.us-west-1.amazonaws.com/lambda_counter';
+```javascript 
+const apiUrl = 'https://your-api-id.execute-api.us-west-1.amazonaws.com/lambda_counter';```
 Replace your-api-id with the actual API ID provided by AWS API Gateway.
 This enables the visitor counter to communicate with your API.
 Replace counter.js in the S3 Bucket:
@@ -120,8 +125,9 @@ If you are managing your S3 objects via Terraform:
 
 Ensure that the source_hash attribute in the aws_s3_object resource for counter.js is updated.
 
-hcl
+
 Copy code
+```hcl
 resource "aws_s3_object" "website_js" {
   bucket        = aws_s3_bucket.cloud_resume_challenge.id
   key           = "counter.js"
@@ -129,7 +135,7 @@ resource "aws_s3_object" "website_js" {
   content_type  = "text/javascript"
   source_hash   = filemd5("website/counter.js")
   acl           = "public-read"
-}
+}```
 Run terraform apply to update the object in S3.
 
 If you are uploading manually:
@@ -148,9 +154,10 @@ Select your distribution and choose Invalidations.
 
 Create a new invalidation and enter /* as the path.
 
-bash
+
 Copy code
-aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+```bash
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"```
 This will invalidate all cached files, ensuring that users receive the latest version.
 
 Usage
@@ -159,9 +166,10 @@ The visitor counter should display the number of visits, which is updated in rea
 Cleanup
 To remove all resources created by this project:
 
-bash
+
 Copy code
-terraform destroy
+```bash
+terraform destroy```
 Alternatively, you can trigger the DESTROY_TERRAFORM parameter in the Jenkins pipeline to automate the cleanup.
 
 Project Structure
@@ -182,6 +190,4 @@ cloud-resume-challenge/
 ├── provider.tf                  # Terraform provider configurations
 ├── terraform.tfvars             # Terraform variable values
 ├── README.md                    # Project documentation
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
