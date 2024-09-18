@@ -209,8 +209,3 @@ cloud-resume-challenge/
 ├── terraform.tfvars             # Terraform variable values
 ├── README.md                    # Project documentation
 ```
-
-## **License**
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
