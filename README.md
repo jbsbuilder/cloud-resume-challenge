@@ -55,78 +55,92 @@ Before you begin, ensure you have the following installed:
 ```bash
 git clone https://github.com/your-username/cloud-resume-challenge.git
 cd cloud-resume-challenge
-Terraform Setup
+```
+
+### **Terraform Setup**
+
 Initialize Terraform:
 
-bash
-Copy code
+```bash
 terraform init
+```
+
 Review the Terraform Plan:
 
-bash
-Copy code
+```bash
 terraform plan
+```
+
 Apply the Terraform Configuration:
 
-Due to a dependency issue where the static bucket permissions try to attach before the bucket is created, you need to run terraform apply twice.
+Due to a dependency issue where the static bucket permissions try to attach before the bucket is created, you need to run `terraform apply` twice.
 
-First Apply:
+**First Apply:**
 
-bash
-Copy code
+```bash
 terraform apply
-Second Apply:
+```
 
-bash
-Copy code
+**Second Apply:**
+
+```bash
 terraform apply
-Note: The first apply creates the S3 bucket, and the second apply attaches the necessary permissions once the bucket exists.
+```
 
-AWS Configuration
+*Note: The first apply creates the S3 bucket, and the second apply attaches the necessary permissions once the bucket exists.*
+
+### **AWS Configuration**
+
 Ensure your AWS credentials are configured correctly. You can set them using environment variables or AWS CLI configuration files.
 
-Jenkins Pipeline
-A Jenkinsfile is provided to automate the deployment process.
-The pipeline includes stages for initializing, planning, applying, and destroying Terraform configurations.
-Parameters allow you to control which stages to execute.
-Note: Ensure that Jenkins has the necessary AWS credentials configured and that the credentials ID matches the one used in the Jenkinsfile.
+### **Jenkins Pipeline**
 
-Deployment
-1. Set Up AWS Resources
+A Jenkinsfile is provided to automate the deployment process.  
+The pipeline includes stages for initializing, planning, applying, and destroying Terraform configurations.  
+Parameters allow you to control which stages to execute.  
+*Note: Ensure that Jenkins has the necessary AWS credentials configured and that the credentials ID matches the one used in the Jenkinsfile.*
+
+## **Deployment**
+
+### 1. Set Up AWS Resources
+
 The Terraform scripts will create:
 
-An S3 bucket for hosting the website.
-A DynamoDB table for tracking visitor counts.
-An API Gateway (HTTP API) with CORS configured.
-A Lambda function that interacts with DynamoDB.
-Necessary IAM roles and permissions.
-2. Deploy the Website
-Upload static files (index.html, resume.css, counter.js, 404.html) to the S3 bucket.
-The files are managed via Terraform using aws_s3_object resources.
+- An S3 bucket for hosting the website.
+- A DynamoDB table for tracking visitor counts.
+- An API Gateway (HTTP API) with CORS configured.
+- A Lambda function that interacts with DynamoDB.
+- Necessary IAM roles and permissions.
 
-3. Configure API Gateway URL in counter.js
+### 2. Deploy the Website
+
+Upload static files (`index.html`, `resume.css`, `counter.js`, `404.html`) to the S3 bucket.  
+The files are managed via Terraform using `aws_s3_object` resources.
+
+### 3. Configure API Gateway URL in `counter.js`
+
 Update the API URL:
 
-In your local website/counter.js file, replace the placeholder API URL with your actual API Gateway URL, appending /lambda_counter to the end.
+In your local `website/counter.js` file, replace the placeholder API URL with your actual API Gateway URL, appending `/lambda_counter` to the end.
 
-javascript
-Copy code
+```javascript
 const apiUrl = 'https://your-api-id.execute-api.us-west-1.amazonaws.com/lambda_counter';
-Replace your-api-id with the actual API ID provided by AWS API Gateway.
+```
+
+Replace `your-api-id` with the actual API ID provided by AWS API Gateway.  
 This enables the visitor counter to communicate with your API.
 
-Replace counter.js in the S3 Bucket:
+**Replace `counter.js` in the S3 Bucket:**
 
-After updating counter.js, you need to replace the existing counter.js file in your S3 bucket with the updated version to reflect the changes.
+After updating `counter.js`, you need to replace the existing `counter.js` file in your S3 bucket with the updated version to reflect the changes.
 
-Steps to Replace counter.js in S3:
+**Steps to Replace `counter.js` in S3:**
 
 If you are managing your S3 objects via Terraform:
 
-Ensure that the source_hash attribute in the aws_s3_object resource for counter.js is updated.
+Ensure that the `source_hash` attribute in the `aws_s3_object` resource for `counter.js` is updated.
 
-hcl
-Copy code
+```hcl
 resource "aws_s3_object" "website_js" {
   bucket        = aws_s3_bucket.cloud_resume_challenge.id
   key           = "counter.js"
@@ -135,42 +149,50 @@ resource "aws_s3_object" "website_js" {
   source_hash   = filemd5("website/counter.js")
   acl           = "public-read"
 }
-Run terraform apply to update the object in S3.
+```
+
+Run `terraform apply` to update the object in S3.
 
 If you are uploading manually:
 
-Navigate to the S3 bucket in the AWS Management Console.
-Upload the updated counter.js file, overwriting the existing one.
-Ensure that the file permissions allow public read access.
-4. Invalidate CloudFront Cache (If Applicable)
+- Navigate to the S3 bucket in the AWS Management Console.
+- Upload the updated `counter.js` file, overwriting the existing one.
+- Ensure that the file permissions allow public read access.
+
+### 4. Invalidate CloudFront Cache (If Applicable)
+
 If you are using Amazon CloudFront as a CDN in front of your S3 bucket and you have updated files that are cached, you may need to invalidate the cache to force the distribution to serve the updated content.
 
-Create a Cache Invalidation:
+**Create a Cache Invalidation:**
 
-In the AWS Management Console, navigate to CloudFront.
-Select your distribution and choose Invalidations.
-Create a new invalidation and enter /* as the path.
+In the AWS Management Console, navigate to CloudFront.  
+Select your distribution and choose Invalidations.  
+Create a new invalidation and enter `/*` as the path.
 
-bash
-Copy code
+```bash
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+```
+
 This will invalidate all cached files, ensuring that users receive the latest version.
 
-Usage
-Access your website via the S3 bucket URL, CloudFront distribution, or your custom domain.
+## **Usage**
+
+Access your website via the S3 bucket URL, CloudFront distribution, or your custom domain.  
 The visitor counter should display the number of visits, which is updated in real-time via the API Gateway and Lambda function.
 
-Cleanup
+## **Cleanup**
+
 To remove all resources created by this project:
 
-bash
-Copy code
+```bash
 terraform destroy
-Alternatively, you can trigger the DESTROY_TERRAFORM parameter in the Jenkins pipeline to automate the cleanup.
+```
 
-Project Structure
-graphql
-Copy code
+Alternatively, you can trigger the `DESTROY_TERRAFORM` parameter in the Jenkins pipeline to automate the cleanup.
+
+## **Project Structure**
+
+```graphql
 cloud-resume-challenge/
 ├── lambda-functions/
 │   └── lambda_function.py       # Lambda function code
@@ -186,4 +208,9 @@ cloud-resume-challenge/
 ├── provider.tf                  # Terraform provider configurations
 ├── terraform.tfvars             # Terraform variable values
 ├── README.md                    # Project documentation
+```
+
+## **License**
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
