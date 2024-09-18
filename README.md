@@ -2,6 +2,10 @@
 
 This repository contains the code and configurations for the **Cloud Resume Challenge**, which involves building a serverless website using AWS services, Terraform, and continuous integration with Jenkins.
 
+## **Resume**
+
+https://cloudresumechallenge.cloudsmithlabs.com/
+
 ## **Table of Contents**
 
 - [Project Overview](#project-overview)
