@@ -34,7 +34,7 @@ The Cloud Resume Challenge is a project that showcases your ability to build and
 
 ## **Architecture**
 
-![Architecture Diagram](images/architecture-diagram.png)
+![Architecture Diagram](images/cloudresumegram.png)
 
 *Note: Include an architecture diagram if possible to visually represent the components and their interactions.*
 
