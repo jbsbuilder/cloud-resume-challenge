@@ -56,43 +56,41 @@ Before you begin, ensure you have the following installed:
 git clone https://github.com/your-username/cloud-resume-challenge.git
 cd cloud-resume-challenge
 Terraform Setup
-Initialize Terraform:```
+Initialize Terraform:
 
-
+bash
 Copy code
-```bash
-terraform init```
+terraform init
 Review the Terraform Plan:
 
-
+bash
 Copy code
-```bash 
-terraform plan```
+terraform plan
 Apply the Terraform Configuration:
 
 Due to a dependency issue where the static bucket permissions try to attach before the bucket is created, you need to run terraform apply twice.
 
 First Apply:
 
-
+bash
 Copy code
-```bash
-terraform apply```
+terraform apply
 Second Apply:
 
-
+bash
 Copy code
-```bash
-terraform apply```
+terraform apply
 Note: The first apply creates the S3 bucket, and the second apply attaches the necessary permissions once the bucket exists.
 
 AWS Configuration
 Ensure your AWS credentials are configured correctly. You can set them using environment variables or AWS CLI configuration files.
+
 Jenkins Pipeline
 A Jenkinsfile is provided to automate the deployment process.
 The pipeline includes stages for initializing, planning, applying, and destroying Terraform configurations.
 Parameters allow you to control which stages to execute.
 Note: Ensure that Jenkins has the necessary AWS credentials configured and that the credentials ID matches the one used in the Jenkinsfile.
+
 Deployment
 1. Set Up AWS Resources
 The Terraform scripts will create:
@@ -105,29 +103,30 @@ Necessary IAM roles and permissions.
 2. Deploy the Website
 Upload static files (index.html, resume.css, counter.js, 404.html) to the S3 bucket.
 The files are managed via Terraform using aws_s3_object resources.
+
 3. Configure API Gateway URL in counter.js
 Update the API URL:
 
 In your local website/counter.js file, replace the placeholder API URL with your actual API Gateway URL, appending /lambda_counter to the end.
 
-
+javascript
 Copy code
-```javascript 
-const apiUrl = 'https://your-api-id.execute-api.us-west-1.amazonaws.com/lambda_counter';```
+const apiUrl = 'https://your-api-id.execute-api.us-west-1.amazonaws.com/lambda_counter';
 Replace your-api-id with the actual API ID provided by AWS API Gateway.
 This enables the visitor counter to communicate with your API.
+
 Replace counter.js in the S3 Bucket:
 
 After updating counter.js, you need to replace the existing counter.js file in your S3 bucket with the updated version to reflect the changes.
+
 Steps to Replace counter.js in S3:
 
 If you are managing your S3 objects via Terraform:
 
 Ensure that the source_hash attribute in the aws_s3_object resource for counter.js is updated.
 
-
+hcl
 Copy code
-```hcl
 resource "aws_s3_object" "website_js" {
   bucket        = aws_s3_bucket.cloud_resume_challenge.id
   key           = "counter.js"
@@ -135,7 +134,7 @@ resource "aws_s3_object" "website_js" {
   content_type  = "text/javascript"
   source_hash   = filemd5("website/counter.js")
   acl           = "public-read"
-}```
+}
 Run terraform apply to update the object in S3.
 
 If you are uploading manually:
@@ -149,27 +148,24 @@ If you are using Amazon CloudFront as a CDN in front of your S3 bucket and you h
 Create a Cache Invalidation:
 
 In the AWS Management Console, navigate to CloudFront.
-
 Select your distribution and choose Invalidations.
-
 Create a new invalidation and enter /* as the path.
 
-
+bash
 Copy code
-```bash
-aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"```
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 This will invalidate all cached files, ensuring that users receive the latest version.
 
 Usage
 Access your website via the S3 bucket URL, CloudFront distribution, or your custom domain.
 The visitor counter should display the number of visits, which is updated in real-time via the API Gateway and Lambda function.
+
 Cleanup
 To remove all resources created by this project:
 
-
+bash
 Copy code
-```bash
-terraform destroy```
+terraform destroy
 Alternatively, you can trigger the DESTROY_TERRAFORM parameter in the Jenkins pipeline to automate the cleanup.
 
 Project Structure
