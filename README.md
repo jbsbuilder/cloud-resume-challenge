@@ -24,7 +24,6 @@ https://cloudresumechallenge.cloudsmithlabs.com/
 - [Usage](#usage)
 - [Cleanup](#cleanup)
 - [Project Structure](#project-structure)
-- [License](#license)
 
 ## **Project Overview**
 
